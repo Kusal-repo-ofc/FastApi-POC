@@ -32,7 +32,7 @@ class UserLogin(BaseModel):
 
 class Post(PostBase):
     id : int
-    creator_at : datetime
+    created_at : datetime
     owner_id : int
     owner : UserOut
 
