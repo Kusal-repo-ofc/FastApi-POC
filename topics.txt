@@ -1,0 +1,145 @@
+## 🔹 Overall Focus of the Meeting
+
+The discussion was primarily technical, centered around:
+
+* Troubleshooting Python 3.14 behavior (especially GIL handling)
+* Fixing environment issues on Windows PowerShell
+* Reviewing your FastAPI + PostgreSQL project
+* Guidance on how to present your work/demo effectively
+
+## 🧠 Key Technical Discussion
+
+### 1. Python 3.14 & GIL (Global Interpreter Lock)
+
+* The team discussed how **Python 3.14 behaves differently with GIL**
+* You cannot disable GIL in a standard installation, but:
+  * A **special free-threaded build** is required for that
+* A workaround was tested by setting environment variables
+
+👉 From meeting chat:
+
+* CMD approach: `set PYTHON_GIL=0`
+* PowerShell approach: `$env:PYTHON_GIL = "1"`
+
+### 2. PowerShell vs CMD Issue (Important finding)
+
+* Initial commands were failing due to **shell mismatch**
+* It was discovered:
+  * You were using **PowerShell**, not CMD
+  * Commands differ between shells
+
+✅ Resolution:
+
+* Correct syntax for PowerShell was used
+* Verified environment variable using echo-style checks
+* After fixing, your FastAPI app ran successfully
+
+## 🚀 FastAPI Project Review (Your Work)
+
+### What you’ve built
+
+* A basic **CRUD API for posts**:
+  * Create post
+  * Get all posts
+  * Get single post
+  * Update post
+  * Delete post
+
+### Tech stack used
+
+* **FastAPI**
+* **PostgreSQL**
+* **SQLAlchemy (ORM)**
+* **Pydantic schemas**
+
+### Key discussion points
+
+#### ✅ ORM vs Raw SQL
+
+* You initially used raw SQL
+* Later switched to ORM → ✅ good practice
+
+#### ✅ Pydantic `model_config = from_attributes = True`
+
+* Purpose explained:
+  * Allows returning ORM objects directly as responses
+  * Avoids manual conversion (dict → JSON)
+
+#### ✅ `.dict()` vs `.model_dump()`
+
+* `.dict()` is outdated for latest versions
+* Recommended to use:
+
+```python
+model.model_dump()
+```
+
+#### ✅ `**kwargs` (unpacking)
+
+* Explained how `**` works:
+  * Unpacks dictionary into key-value pairs
+  * Useful in object creation or merging data
+
+## 🛠️ Issues Resolved
+
+* Python GIL-related runtime error ✅
+* PowerShell environment variable issue ✅
+* API running successfully without errors ✅
+* Timestamp issue in DB resolved ✅
+
+## 📊 Guidance for Your Demo / Presentation
+
+Your lead gave strong practical advice:
+
+### How to present
+
+* Follow **“Show, don’t tell”**
+  * Show Postman results instead of describing APIs
+* Keep it **simple and visual**
+
+### Structure suggestion
+
+1. Show working APIs (CRUD)
+2. Explain high-level architecture:
+   * Routing layer
+   * Service/logic layer
+   * ORM usage
+3. Use a **simple diagram**
+4. Keep it within **15–20 minutes**
+
+### Important tips
+
+* Don’t go too deep (team is mostly Java-based)
+* Focus on clarity over complexity
+* No rush — you can take more time to improve
+
+## 📚 Learning Progress Discussion
+
+* You are following a **FastAPI course (\~19 hours)**
+* Completed \~6 hours so far
+* Using **freeCodeCamp (YouTube)** → appreciated as a good resource
+
+## 💡 Additional Suggestions from Team
+
+* Extend your project into a real-world use case (e.g., question bank system)
+* Continue learning before demo
+* Share findings (especially Windows issues) with the team
+
+## ✅ Final Outcome of the Meeting
+
+* Your application is working ✅
+* Key concepts clarified ✅
+* Environment issue solved ✅
+* You received clear direction for next steps ✅
+
+## ⚡ Quick Action Items for You
+
+* ✅ Document PowerShell GIL setup (for future use)
+* ✅ Improve API demo with diagram
+* ✅ Continue FastAPI learning
+* ✅ Think of a real use-case enhancement
+
+If you want, I can convert this into:
+✅ A **presentation PPT**
+✅ A **demo script (what to say step-by-step)**
+✅ Or even a **clean architecture diagram + FastAPI code improvements**
